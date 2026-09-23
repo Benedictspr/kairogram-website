@@ -482,6 +482,230 @@ body {
   transform: translateY(-1px);
 }
 
+/* Public Live Counter Component */
+.hero-live-counter {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(18, 18, 28, 0.85) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-live-counter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10B981, #8B5CF6, #38BDF8);
+  opacity: 0.8;
+}
+
+.live-counter-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pulse-ring {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  position: relative;
+}
+
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(16, 185, 129, 0.7);
+  animation: rippleGlow 2s ease-out infinite;
+}
+
+.counter-badge-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #10B981;
+  text-transform: uppercase;
+}
+
+.counter-live-badge {
+  background: rgba(16, 185, 129, 0.14);
+  color: #34D399;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.live-counter-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.counter-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.counter-box-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.downloads-icon {
+  background: rgba(139, 92, 246, 0.16);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #A78BFA;
+}
+
+.views-icon {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+}
+
+.verified-icon {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10B981;
+}
+
+.counter-box-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.counter-val-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.counter-value {
+  font-family: 'Cinzel', serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.counter-value.updated {
+  animation: counterPop 0.5s ease-out;
+}
+
+@keyframes counterPop {
+  0% { transform: scale(1); color: #FFFFFF; }
+  50% { transform: scale(1.18); color: #10B981; text-shadow: 0 0 16px rgba(16, 185, 129, 0.6); }
+  100% { transform: scale(1); color: #FFFFFF; }
+}
+
+.counter-inc-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.2);
+  padding: 1px 6px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(0);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.counter-inc-tag.animate {
+  opacity: 1;
+  transform: translateY(-8px);
+}
+
+.counter-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.counter-badge-verified {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F1F5F9;
+  line-height: 1.2;
+}
+
+.counter-box-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+/* Banner Live Counter */
+.banner-live-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.pulse-ring-small {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-live-text {
+  font-size: 13px;
+  color: #D1FAE5;
+}
+
+.banner-live-text strong {
+  color: #FFFFFF;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+}
+
 .trust-badges {
   display: flex;
   align-items: center;
@@ -1434,6 +1658,20 @@ body {
   
   .hero-subtitle {
     font-size: 15px;
+  }
+  
+  .live-counter-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .counter-box-divider {
+    display: none;
+  }
+
+  .counter-box {
+    width: 100%;
   }
   
   .features-grid {

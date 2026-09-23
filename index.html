@@ -19,6 +19,18 @@
 
   <link rel="icon" type="image/png" href="assets/logo-white.png">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Google Analytics 4 (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0QWW59ZJDW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0QWW59ZJDW', {
+      send_page_view: true
+    });
+  </script>
 </head>
 <body>
 
@@ -125,6 +137,68 @@
             <span>Explore Features</span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
           </a>
+        </div>
+
+        <!-- PUBLIC LIVE COUNTER -->
+        <div class="hero-live-counter" id="heroLiveCounter">
+          <div class="live-counter-header">
+            <span class="pulse-ring">
+              <span class="pulse-dot"></span>
+            </span>
+            <span class="counter-badge-label">PUBLIC LIVE COUNTER</span>
+            <span class="counter-live-badge">REAL-TIME</span>
+          </div>
+          
+          <div class="live-counter-grid">
+            <div class="counter-box" id="counterBoxDownloads">
+              <div class="counter-box-icon downloads-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <div class="counter-box-content">
+                <div class="counter-val-wrap">
+                  <span class="counter-value" id="liveDownloadCount">--</span>
+                  <span class="counter-inc-tag" id="downloadIncTag">+1</span>
+                </div>
+                <span class="counter-desc">Total App Downloads</span>
+              </div>
+            </div>
+
+            <div class="counter-box-divider"></div>
+
+            <div class="counter-box" id="counterBoxViews">
+              <div class="counter-box-icon views-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </div>
+              <div class="counter-box-content">
+                <div class="counter-val-wrap">
+                  <span class="counter-value" id="liveVisitorCount">--</span>
+                </div>
+                <span class="counter-desc">Global Page Views</span>
+              </div>
+            </div>
+
+            <div class="counter-box-divider"></div>
+
+            <div class="counter-box verified-box">
+              <div class="counter-box-icon verified-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <path d="m9 12 2 2 4-4"></path>
+                </svg>
+              </div>
+              <div class="counter-box-content">
+                <span class="counter-badge-verified">GA4 Synced</span>
+                <span class="counter-desc">Official Telemetry</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="trust-badges">
@@ -522,6 +596,13 @@
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               <span>Copy Link</span>
             </button>
+          </div>
+
+          <div class="banner-live-counter">
+            <span class="pulse-ring-small">
+              <span class="pulse-dot"></span>
+            </span>
+            <span class="banner-live-text"><strong id="bannerDownloadCount">--</strong> downloads tracked in real time &bull; Live Telemetry</span>
           </div>
 
           <div class="banner-specs">

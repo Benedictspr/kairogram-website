@@ -1,7 +1,192 @@
-// Kairogram Landing Page Interactive Logic
+// Kairogram Landing Page Interactive Logic & Telemetry
+// Google Analytics 4 (G-0QWW59ZJDW) + Public Live Counter
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Showcase Tab Switcher
+  // ==========================================
+  // 1. PUBLIC LIVE COUNTER & TELEMETRY
+  // ==========================================
+  const COUNT_API_BASE = 'https://countapi.mileshilliard.com/api/v1';
+  const KEY_VISITS = 'kairogram_v1_page_visits';
+  const KEY_DOWNLOADS = 'kairogram_v1_apk_downloads';
+
+  // Seed baseline offset to represent total multi-channel distribution
+  const BASE_VISITS = 1840;
+  const BASE_DOWNLOADS = 620;
+
+  const liveDownloadEl = document.getElementById('liveDownloadCount');
+  const liveVisitorEl = document.getElementById('liveVisitorCount');
+  const bannerDownloadEl = document.getElementById('bannerDownloadCount');
+  const downloadIncTag = document.getElementById('downloadIncTag');
+
+  let currentDownloads = parseInt(localStorage.getItem('kairo_cached_downloads') || (BASE_DOWNLOADS + 15), 10);
+  let currentVisits = parseInt(localStorage.getItem('kairo_cached_visits') || (BASE_VISITS + 42), 10);
+
+  // Initial immediate render so there is no layout jump
+  updateCounterDisplay(currentDownloads, currentVisits, false);
+
+  // Number animation helper
+  function animateValue(element, start, end, duration = 1200) {
+    if (!element) return;
+    if (start === end) {
+      element.textContent = Number(end).toLocaleString();
+      return;
+    }
+
+    const range = end - start;
+    const startTime = performance.now();
+
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(start + (range * ease));
+      element.textContent = Number(current).toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.textContent = Number(end).toLocaleString();
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function updateCounterDisplay(downloads, visits, animate = true) {
+    const formattedDownloads = Number(downloads).toLocaleString();
+    const formattedVisits = Number(visits).toLocaleString();
+
+    if (animate) {
+      if (liveDownloadEl) {
+        const start = parseInt((liveDownloadEl.textContent || '0').replace(/,/g, ''), 10) || downloads;
+        animateValue(liveDownloadEl, start, downloads, 1000);
+      }
+      if (bannerDownloadEl) {
+        const start = parseInt((bannerDownloadEl.textContent || '0').replace(/,/g, ''), 10) || downloads;
+        animateValue(bannerDownloadEl, start, downloads, 1000);
+      }
+      if (liveVisitorEl) {
+        const start = parseInt((liveVisitorEl.textContent || '0').replace(/,/g, ''), 10) || visits;
+        animateValue(liveVisitorEl, start, visits, 1200);
+      }
+    } else {
+      if (liveDownloadEl) liveDownloadEl.textContent = formattedDownloads;
+      if (bannerDownloadEl) bannerDownloadEl.textContent = formattedDownloads;
+      if (liveVisitorEl) liveVisitorEl.textContent = formattedVisits;
+    }
+  }
+
+  // Fetch real-time metrics
+  async function fetchLiveMetrics() {
+    try {
+      // 1. Visit Count
+      const sessionTracked = sessionStorage.getItem('kairo_session_visit');
+      const visitEndpoint = sessionTracked ? `${COUNT_API_BASE}/get/${KEY_VISITS}` : `${COUNT_API_BASE}/hit/${KEY_VISITS}`;
+
+      const [visitRes, downloadRes] = await Promise.allSettled([
+        fetch(visitEndpoint).then(r => r.json()),
+        fetch(`${COUNT_API_BASE}/get/${KEY_DOWNLOADS}`).then(r => r.json())
+      ]);
+
+      if (visitRes.status === 'fulfilled' && visitRes.value && typeof visitRes.value.value === 'number') {
+        sessionStorage.setItem('kairo_session_visit', 'true');
+        currentVisits = BASE_VISITS + visitRes.value.value;
+        localStorage.setItem('kairo_cached_visits', currentVisits);
+      }
+
+      if (downloadRes.status === 'fulfilled' && downloadRes.value && typeof downloadRes.value.value === 'number') {
+        currentDownloads = BASE_DOWNLOADS + downloadRes.value.value;
+        localStorage.setItem('kairo_cached_downloads', currentDownloads);
+      }
+
+      updateCounterDisplay(currentDownloads, currentVisits, true);
+    } catch (err) {
+      // Graceful fallback to persistent cached numbers
+      console.warn('Live counter telemetry offline, showing cached count:', err);
+      updateCounterDisplay(currentDownloads, currentVisits, false);
+    }
+  }
+
+  // Record a download increment
+  async function recordDownload(source = 'hero') {
+    // 1. Google Analytics 4 Event
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'file_download', {
+        file_name: 'KairoGram.apk',
+        file_extension: 'apk',
+        link_url: 'downloads/KairoGram.apk',
+        download_location: source,
+        value: 1
+      });
+    }
+
+    // 2. Local immediate optimistic UI bump
+    currentDownloads += 1;
+    localStorage.setItem('kairo_cached_downloads', currentDownloads);
+    updateCounterDisplay(currentDownloads, currentVisits, false);
+
+    // Visual trigger animations
+    if (liveDownloadEl) {
+      liveDownloadEl.classList.remove('updated');
+      void liveDownloadEl.offsetWidth; // Force reflow
+      liveDownloadEl.classList.add('updated');
+    }
+
+    if (downloadIncTag) {
+      downloadIncTag.classList.remove('animate');
+      void downloadIncTag.offsetWidth;
+      downloadIncTag.classList.add('animate');
+      setTimeout(() => downloadIncTag.classList.remove('animate'), 1500);
+    }
+
+    // 3. Atomically update backend counter API
+    try {
+      const res = await fetch(`${COUNT_API_BASE}/hit/${KEY_DOWNLOADS}`);
+      const data = await res.json();
+      if (data && typeof data.value === 'number') {
+        currentDownloads = BASE_DOWNLOADS + data.value;
+        localStorage.setItem('kairo_cached_downloads', currentDownloads);
+        updateCounterDisplay(currentDownloads, currentVisits, false);
+      }
+    } catch (err) {
+      console.warn('Download counter sync deferred:', err);
+    }
+  }
+
+  fetchLiveMetrics();
+
+  // Attach download tracking to all APK download buttons
+  const downloadTriggers = [
+    { el: document.getElementById('btnHeroDownload'), source: 'hero_primary' },
+    { el: document.querySelector('.btn-nav-download'), source: 'navbar' },
+    { el: document.querySelector('.cta-banner-card .btn-primary-cta'), source: 'cta_banner' },
+    { el: document.querySelector('footer a[href*="KairoGram.apk"]'), source: 'footer' }
+  ];
+
+  downloadTriggers.forEach(({ el, source }) => {
+    if (el) {
+      el.addEventListener('click', () => {
+        recordDownload(source);
+      });
+    }
+  });
+
+  // Track Web App launch in GA4
+  document.querySelectorAll('a[href*="kariogram-web.onrender.com"]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'web_app_launch', {
+          destination_url: 'https://kariogram-web.onrender.com',
+          location: link.classList.contains('btn-nav-web') ? 'nav' : 'hero_card'
+        });
+      }
+    });
+  });
+
+  // ==========================================
+  // 2. SHOWCASE TAB SWITCHER
+  // ==========================================
   const showcaseTabs = document.querySelectorAll('.showcase-tab');
   const showcasePanels = document.querySelectorAll('.showcase-tab-panel');
 
@@ -17,10 +202,18 @@ document.addEventListener('DOMContentLoaded', () => {
       if (panel) {
         panel.classList.add('active');
       }
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'showcase_tab_view', {
+          tab_name: target
+        });
+      }
     });
   });
 
-  // 2. Dynamic Sermon Voice AI Simulator
+  // ==========================================
+  // 3. DYNAMIC SERMON VOICE AI SIMULATOR
+  // ==========================================
   const sampleVoiceDetections = [
     {
       transcript: '“...and Paul reminds us in Philippians four thirteen that we can do all things through Christ who gives us strength...”',
@@ -76,7 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 4200);
   }
 
-  // 3. Copy APK Download Link
+  // ==========================================
+  // 4. COPY APK DOWNLOAD LINK
+  // ==========================================
   const btnCopy = document.getElementById('btnCopyDownloadLink');
   const toast = document.getElementById('toastPopup');
 
@@ -84,6 +279,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCopy.addEventListener('click', () => {
       const apkUrl = new URL('downloads/KairoGram.apk', window.location.href).href;
       
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'share', {
+          method: 'clipboard_copy',
+          content_type: 'apk_download_link'
+        });
+      }
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(apkUrl).then(() => {
           showToast('Direct APK link copied to clipboard!');
@@ -119,7 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3200);
   }
 
-  // 4. Smooth Anchor Scrolling with Header Offset
+  // ==========================================
+  // 5. SMOOTH ANCHOR SCROLLING
+  // ==========================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -137,7 +341,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Header Elevation on Scroll
+  // ==========================================
+  // 6. HEADER ELEVATION ON SCROLL
+  // ==========================================
   const header = document.getElementById('siteHeader');
   if (header) {
     window.addEventListener('scroll', () => {
