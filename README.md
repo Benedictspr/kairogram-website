@@ -15,12 +15,15 @@
 
 ---
 
-## 🚀 Live Preview & Deployment
+## 🌐 Live Web & APK Links
 
-- **Website**: Built with clean semantic HTML5, modern vanilla CSS (Obsidian Glassmorphism), and vanilla JavaScript.
-- **Direct APK Hosting**: The production package `KairoGram.apk` is served directly from `/downloads/KairoGram.apk`.
+- **Live Web App**: [https://kariogram-web.onrender.com](https://kariogram-web.onrender.com)
+- **Developer Portfolio**: [https://benedict-portfolio-psi.vercel.app/](https://benedict-portfolio-psi.vercel.app/)
+- **Direct Android APK**: [`/downloads/KairoGram.apk`](downloads/KairoGram.apk)
 
-### Deploying in 1-Click
+---
+
+## 🚀 Deployment
 This site has zero build steps and can be deployed instantly to:
 - **Vercel**: Import this GitHub repository into Vercel and hit Deploy.
 - **GitHub Pages**: Go to **Settings > Pages > Source > Deploy from Branch (`main` / root)**.

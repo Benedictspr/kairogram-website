@@ -177,6 +177,34 @@ body {
   color: var(--text-primary);
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-nav-web {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-nav-web:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
 .btn-nav-download {
   display: inline-flex;
   align-items: center;
@@ -388,6 +416,29 @@ body {
   font-weight: 700;
 }
 
+.btn-web-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #7DD3FC;
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-web-cta:hover {
+  background: rgba(56, 189, 248, 0.22);
+  color: #FFFFFF;
+  border-color: rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.28);
+}
+
 .btn-secondary-cta {
   display: inline-flex;
   align-items: center;
@@ -407,6 +458,28 @@ body {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+}
+
+.btn-card-launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-card-launch:hover {
+  background: #0284C7;
+  color: #FFFFFF;
+  border-color: transparent;
+  transform: translateY(-1px);
 }
 
 .trust-badges {
