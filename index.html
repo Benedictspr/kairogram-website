@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kairogram — Where Spoken Words Meet Eternal Scripture</title>
+  <meta name="description" content="Kairogram is the next-generation Bible study companion featuring real-time sermon voice recognition, authentic dual-page paperback reading, interlinear Strong's lexicon, and offline devotionals.">
+  <meta name="theme-color" content="#0B0B10">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kairogram — Bible Companion & Sermon Voice AI">
+  <meta property="og:description" content="Experience real-time voice-to-verse scripture detection and an authentic two-page paperback Bible spread on Android.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="assets/logo-white.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Ambient Glow Orbs -->
+  <div class="ambient-glow orb-purple"></div>
+  <div class="ambient-glow orb-blue"></div>
+  <div class="ambient-glow orb-subtle"></div>
+
+  <!-- Sticky Navbar -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-container">
+      <a href="#" class="brand-logo" aria-label="Kairogram Home">
+        <div class="logo-symbol">
+          <img src="assets/logo.png" alt="Kairogram Logo" class="brand-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <svg class="brand-logo-fallback" viewBox="0 0 28 28" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H24"></path>
+            <path d="M6.5 2H24v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <circle cx="15" cy="11" r="3" fill="currentColor" fill-opacity="0.3"></circle>
+          </svg>
+        </div>
+        <span class="brand-name">Kairogram</span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#reader" class="nav-link">Paperback Spread</a>
+        <a href="#speech-ai" class="nav-link">Voice AI</a>
+        <a href="#install" class="nav-link">How to Install</a>
+        <a href="#developer" class="nav-link">About Developer</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#download" class="btn-nav-download">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Get APK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-content">
+        <div class="hero-pill-badge" id="heroPillBadge">
+          <div class="pill-glow-border"></div>
+          <div class="pill-status-dot">
+            <span class="dot-core"></span>
+            <span class="dot-ripple"></span>
+          </div>
+          <span class="pill-chip">v1.0 Release</span>
+          <span class="pill-divider"></span>
+          <span class="pill-text">Official Android Build</span>
+          <span class="pill-dot-sep">&bull;</span>
+          <span class="pill-highlight">100% Offline Ready</span>
+          <div class="pill-shine-sweep"></div>
+        </div>
+
+        <h1 class="hero-title">
+          Where Spoken Words Meet <span class="gradient-text">Eternal Scripture</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          The all-in-one biblical companion engineered for modern disciples. Featuring real-time sermon voice-to-verse recognition, an authentic dual-page paperback Bible reader, interlinear Greek & Hebrew concordances, and zero-latency daily devotionals.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="downloads/KairoGram.apk" class="btn-primary-cta" id="btnHeroDownload" download="KairoGram.apk">
+            <div class="btn-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <div class="btn-text">
+              <span class="btn-label-sub">Download for Android</span>
+              <span class="btn-label-main">KairoGram.apk &bull; 34.4 MB</span>
+            </div>
+          </a>
+
+          <a href="#features" class="btn-secondary-cta">
+            <span>Explore Features</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <div class="trust-badges">
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Safe & Verified APK</span>
+          </div>
+          <div class="badge-divider"></div>
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"></path><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+            <span>100% Offline Capability</span>
+          </div>
+          <div class="badge-divider"></div>
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>No Ads &bull; No Tracking</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO PREVIEW SHOWCASE -->
+      <div class="hero-showcase-container">
+        <div class="showcase-glass-card">
+          <!-- Showcase Tabs -->
+          <div class="showcase-tab-header">
+            <button type="button" class="showcase-tab active" data-tab="spread">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              <span>Authentic Two-Page Spread</span>
+            </button>
+            <button type="button" class="showcase-tab" data-tab="voice">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
+              <span>Live Sermon Voice Radar</span>
+            </button>
+          </div>
+
+          <!-- Tab Content 1: Dual-Page Spread -->
+          <div class="showcase-tab-panel active" id="panel-spread">
+            <div class="mini-bible-spread">
+              <!-- Top Running Head -->
+              <div class="mini-running-head">
+                <span class="mini-subhead">THE FIRST BOOK OF MOSES, CALLED</span>
+                <h3 class="mini-book-title">GENESIS</h3>
+                <div class="mini-meta">CHAPTER 1 &bull; KJV &bull; THE CREATION</div>
+              </div>
+
+              <!-- Two-page container with center spine crease -->
+              <div class="mini-spread-body">
+                <div class="mini-spine-crease"></div>
+
+                <!-- Left Page -->
+                <div class="mini-page left">
+                  <p class="mini-verse">
+                    <span class="mini-drop-cap">I</span>n the beginning God created the heaven and the earth.
+                  </p>
+                  <p class="mini-verse">
+                    <span class="mini-num">2</span> And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
+                  </p>
+                  <div class="mini-pericope">THE FIRST DAY</div>
+                  <p class="mini-verse">
+                    <span class="mini-num">3</span> And God said, Let there be light: and there was light.
+                  </p>
+                  <p class="mini-verse">
+                    <span class="mini-num">4</span> And God saw the light, that it was good: and God divided the light from the darkness.
+                  </p>
+                </div>
+
+                <!-- Right Page -->
+                <div class="mini-page right">
+                  <p class="mini-verse">
+                    <span class="mini-num">5</span> And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.
+                  </p>
+                  <div class="mini-pericope">THE SECOND DAY</div>
+                  <p class="mini-verse">
+                    <span class="mini-num">6</span> And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters.
+                  </p>
+                  <p class="mini-verse">
+                    <span class="mini-num">7</span> And God made the firmament, and divided the waters which were under the firmament from the waters which were above.
+                  </p>
+                </div>
+              </div>
+
+              <div class="mini-spread-footer">
+                <span>Tablet / Landscape Mode Active</span>
+                <span class="mini-pill">Two Pages Side-by-Side</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content 2: Live Sermon Voice Radar -->
+          <div class="showcase-tab-panel" id="panel-voice">
+            <div class="mini-voice-demo">
+              <div class="radar-visualizer-box">
+                <div class="radar-wave wave-3"></div>
+                <div class="radar-wave wave-2"></div>
+                <div class="radar-wave wave-1"></div>
+                <div class="radar-mic-center">
+                  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="radar-status-badge">
+                <span class="pulse-indicator"></span>
+                <span>Preacher Speaking &bull; Live Scripture Classification</span>
+              </div>
+              <div class="voice-transcript-bubble">
+                &ldquo;...and Paul reminds us in Philippians four thirteen that we can do all things through Christ who gives us strength...&rdquo;
+              </div>
+              <div class="detected-verse-card">
+                <div class="detected-card-header">
+                  <div class="detected-ref">Philippians 4:13</div>
+                  <span class="detected-confidence">100% Match &bull; KJV</span>
+                </div>
+                <p class="detected-text">&ldquo;I can do all things through Christ which strengtheneth me.&rdquo;</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES SECTION -->
+    <section class="section-container" id="features">
+      <div class="section-header">
+        <span class="section-tag">Architecture & Features</span>
+        <h2 class="section-title">What Kairogram Contains</h2>
+        <p class="section-description">
+          Engineered from the ground up for high-fidelity offline Bible study, live sermons, and spiritual discipline.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card" id="speech-ai">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
+          </div>
+          <h3 class="feature-title">Real-Time Voice-to-Verse AI</h3>
+          <p class="feature-text">
+            Listens continuously to live preaching or scripture readings. Employs a sentence buffer and phonetic parser to recognize citations in real-time, popping up the exact verse instantly.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card" id="reader">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          </div>
+          <h3 class="feature-title">Dual-Page Paperback Spread</h3>
+          <p class="feature-text">
+            On Android tablets and landscape displays, the reader unfolds into a physical open-book spread with authentic spine stitching, drop-cap opening verses, EB Garamond serif type, and 3D page curl animations.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <h3 class="feature-title">Interlinear Strong's Concordance</h3>
+          <p class="feature-text">
+            Dive into original biblical languages. Tap any verse to unpack Hebrew (Westminster Leningrad Codex with Nikkud) or Greek (Scrivener 1894 Textus Receptus) alongside Strong's numbers and transliterations.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3 class="feature-title">Synchronized Devotionals Hub</h3>
+          <p class="feature-text">
+            Access daily Christian devotionals including Open Heavens, Daily Manna, Rhapsody of Realities, Sunday School manuals, and MFM Devotionals—cached offline with cloud persistence.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </div>
+          <h3 class="feature-title">Contextual Notes & Highlights</h3>
+          <p class="feature-text">
+            Pen personal sermon notes directly linked to scriptures. Highlights, bookmarks, and attached notes appear with indicator badges right on the verse row.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          </div>
+          <h3 class="feature-title">High-Fidelity Text-to-Speech</h3>
+          <p class="feature-text">
+            Listen to verses or chapters read aloud with natural pacing. Audio controls let you play, pause, and follow along while on the move or in personal meditation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVICE SUPPORT SECTION -->
+    <section class="section-container platforms-section">
+      <div class="section-header">
+        <span class="section-tag">Compatibility & Hardware</span>
+        <h2 class="section-title">Designed for Every Screen</h2>
+      </div>
+
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <div class="platform-badge">Optimized</div>
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <h3>Android Tablets</h3>
+          <p>Unlocks the physical dual-page paperback experience. Screen widths &ge; 700px flow verses into a left and right page split cleanly by the spine crease.</p>
+          <ul class="platform-specs">
+            <li>7&Prime;, 8&Prime;, 10&Prime;, 11&Prime; &amp; 12&Prime; Displays</li>
+            <li>Landscape &amp; Portrait orientation support</li>
+            <li>Smooth physical 3D page curl swipe</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-badge">Everyday</div>
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <h3>Android Smartphones</h3>
+          <p>Streamlined single-column reading with one-thumb ergonomic navigation, bottom navigation bar, and instant voice listening radar.</p>
+          <ul class="platform-specs">
+            <li>Android 8.0 Oreo up to Android 15</li>
+            <li>AMOLED, Dark, and Light reading themes</li>
+            <li>Zero battery drain when backgrounded</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-badge">Web &amp; Desktop</div>
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <h3>Cross-Platform Web</h3>
+          <p>Access the Kairogram suite through your browser with the Vite desktop dashboard and cloud devotional management portal.</p>
+          <ul class="platform-specs">
+            <li>Chrome, Brave, Edge, Firefox</li>
+            <li>Real-time WebSocket sermon streaming</li>
+            <li>Kairogram Devotionals CMS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP-BY-STEP INSTALLATION GUIDE -->
+    <section class="section-container install-section" id="install">
+      <div class="section-header">
+        <span class="section-tag">Quick Setup</span>
+        <h2 class="section-title">How to Install Kairogram on Android</h2>
+        <p class="section-description">
+          Follow these 4 simple steps to install the APK directly onto your tablet or smartphone in under a minute.
+        </p>
+      </div>
+
+      <div class="install-steps-container">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-info">
+            <h3 class="step-title">Download the APK</h3>
+            <p class="step-desc">
+              Tap the <strong>Download APK</strong> button on this site. Your device will save <code>KairoGram.apk</code> (approx. 34.4 MB) to your Downloads folder.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-info">
+            <h3 class="step-title">Allow Unknown Sources</h3>
+            <p class="step-desc">
+              If prompted by Chrome or your browser that <em>&ldquo;File might be harmful&rdquo;</em>, tap <strong>Download anyway</strong>. When opening, if asked to allow installation, tap <strong>Settings &rarr; Allow from this source</strong>.
+            </p>
+            <div class="step-tip">
+              <strong>Tip:</strong> This is a standard Android security message for apps installed outside the Google Play Store.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-info">
+            <h3 class="step-title">Tap Install &amp; Launch</h3>
+            <p class="step-desc">
+              Tap <strong>Install</strong> on the package installer prompt. Once complete, tap <strong>Open</strong> to launch Kairogram.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-info">
+            <h3 class="step-title">Grant Microphone Access</h3>
+            <p class="step-desc">
+              When prompted, allow <strong>Microphone Permission</strong>. This enables the live speech recognition engine to listen to sermon audio and detect scripture.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT THE DEVELOPER SECTION -->
+    <section class="section-container developer-section" id="developer">
+      <div class="developer-card">
+        <div class="developer-avatar-area">
+          <div class="dev-avatar">
+            <img src="assets/benedict.png" alt="Benedict Olorunwa Adurosakin" class="dev-avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="dev-initials" style="display: none;">B</span>
+          </div>
+          <div class="dev-badge">Lead Creator &bull; Engineer</div>
+        </div>
+
+        <div class="developer-bio">
+          <span class="dev-tag">Behind the Craft</span>
+          <h2 class="dev-name">Benedict Olorunwa Adurosakin</h2>
+          <p class="dev-role">Software Architect &bull; Creator of Kairogram &amp; Kairos Ecosystem</p>
+          <p class="dev-story">
+            &ldquo;Kairogram was born out of a desire for an uncompromised spiritual companion. Traditional Bible software often feels like clunky databases or distracting social media feeds. I wanted to build something that honors the dignity of physical printed scriptures—the weight, the typography, the dual-page spread—while harnessing cutting-edge real-time speech AI to help disciples capture every spoken scripture during sermons with zero lag.&rdquo;
+          </p>
+
+          <div class="dev-actions">
+            <a href="https://benedict-portfolio-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-dev-portfolio" title="Open Benedict's Portfolio">
+              <span>View Benedict's Portfolio</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+
+          <div class="dev-highlights">
+            <div class="highlight-item">
+              <span class="highlight-val">100%</span>
+              <span class="highlight-lbl">Offline First</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-val">0ms</span>
+              <span class="highlight-lbl">Scripture Latency</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-val">6+</span>
+              <span class="highlight-lbl">Bundled Translations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD CALLOUT BANNER -->
+    <section class="section-container download-callout-section" id="download">
+      <div class="download-banner-card">
+        <div class="banner-content">
+          <span class="banner-pill">Ready to Experience Kairogram?</span>
+          <h2 class="banner-title">Download Kairogram Today</h2>
+          <p class="banner-desc">
+            Equip your tablet or phone with the ultimate real-time scripture and devotional companion. Free, private, and fully offline.
+          </p>
+
+          <div class="banner-actions">
+            <a href="downloads/KairoGram.apk" class="btn-primary-cta banner-btn" download="KairoGram.apk">
+              <div class="btn-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <div class="btn-text">
+                <span class="btn-label-sub">Official Package</span>
+                <span class="btn-label-main">Download KairoGram.apk (34.4 MB)</span>
+              </div>
+            </a>
+
+            <button type="button" class="btn-copy-link" id="btnCopyDownloadLink" title="Copy APK download link">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Link</span>
+            </button>
+          </div>
+
+          <div class="banner-specs">
+            <span>Version 1.0</span> &bull; 
+            <span>Package: com.example.kairogram</span> &bull; 
+            <span>Requires Android 8.0+</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Kairogram Logo" class="brand-logo-img" style="width: 28px; height: 28px; margin-right: 8px;">
+          <span class="brand-name">Kairogram</span>
+        </div>
+        <p class="footer-tagline">
+          Where Spoken Words Meet Eternal Scripture. Designed and engineered by <a href="https://benedict-portfolio-psi.vercel.app/" target="_blank" rel="noopener noreferrer" class="footer-dev-link">Benedict Olorunwa Adurosakin</a>.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#reader">Paperback Spread</a>
+        <a href="#speech-ai">Voice AI</a>
+        <a href="#install">Install Guide</a>
+        <a href="downloads/KairoGram.apk" download="KairoGram.apk">Direct APK</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kairogram. All rights reserved. Canonical Scriptures &bull; Offline First.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast-popup" id="toastPopup">Download link copied to clipboard!</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
