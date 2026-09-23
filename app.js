@@ -1,31 +1,80 @@
 // Kairogram Landing Page Interactive Logic & Telemetry
-// Google Analytics 4 (G-0QWW59ZJDW) + Public Live Counter
+// Google Analytics 4 (G-0QWW59ZJDW) + Real-Time Public Live Counter
 
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
-  // 1. PUBLIC LIVE COUNTER & TELEMETRY
+  // 1. MOBILE DRAWER NAVIGATION
+  // ==========================================
+  const btnMobileMenu = document.getElementById('btnMobileMenu');
+  const btnDrawerClose = document.getElementById('btnDrawerClose');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link, .btn-drawer-download, .btn-drawer-web');
+
+  function openMobileMenu() {
+    if (mobileNavDrawer && btnMobileMenu) {
+      mobileNavDrawer.classList.add('open');
+      btnMobileMenu.classList.add('active');
+      btnMobileMenu.setAttribute('aria-expanded', 'true');
+      mobileNavDrawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+  }
+
+  function closeMobileMenu() {
+    if (mobileNavDrawer && btnMobileMenu) {
+      mobileNavDrawer.classList.remove('open');
+      btnMobileMenu.classList.remove('active');
+      btnMobileMenu.setAttribute('aria-expanded', 'false');
+      mobileNavDrawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (btnMobileMenu) {
+    btnMobileMenu.addEventListener('click', () => {
+      if (mobileNavDrawer.classList.contains('open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  if (btnDrawerClose) {
+    btnDrawerClose.addEventListener('click', closeMobileMenu);
+  }
+
+  if (mobileNavBackdrop) {
+    mobileNavBackdrop.addEventListener('click', closeMobileMenu);
+  }
+
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // ==========================================
+  // 2. REAL-TIME PUBLIC LIVE COUNTER & TELEMETRY
   // ==========================================
   const COUNT_API_BASE = 'https://countapi.mileshilliard.com/api/v1';
   const KEY_VISITS = 'kairogram_v1_page_visits';
   const KEY_DOWNLOADS = 'kairogram_v1_apk_downloads';
-
-  // Seed baseline offset to represent total multi-channel distribution
-  const BASE_VISITS = 1840;
-  const BASE_DOWNLOADS = 620;
 
   const liveDownloadEl = document.getElementById('liveDownloadCount');
   const liveVisitorEl = document.getElementById('liveVisitorCount');
   const bannerDownloadEl = document.getElementById('bannerDownloadCount');
   const downloadIncTag = document.getElementById('downloadIncTag');
 
-  let currentDownloads = parseInt(localStorage.getItem('kairo_cached_downloads') || (BASE_DOWNLOADS + 15), 10);
-  let currentVisits = parseInt(localStorage.getItem('kairo_cached_visits') || (BASE_VISITS + 42), 10);
+  // Load real cached values (zero mockup padding)
+  let currentDownloads = parseInt(localStorage.getItem('kairo_real_downloads') || '0', 10);
+  let currentVisits = parseInt(localStorage.getItem('kairo_real_visits') || '0', 10);
 
-  // Initial immediate render so there is no layout jump
-  updateCounterDisplay(currentDownloads, currentVisits, false);
+  // Initial immediate render
+  if (currentDownloads > 0 || currentVisits > 0) {
+    updateCounterDisplay(currentDownloads, currentVisits, false);
+  }
 
-  // Number animation helper
-  function animateValue(element, start, end, duration = 1200) {
+  function animateValue(element, start, end, duration = 800) {
     if (!element) return;
     if (start === end) {
       element.textContent = Number(end).toLocaleString();
@@ -38,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function step(currentTime) {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const ease = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(start + (range * ease));
       element.textContent = Number(current).toLocaleString();
@@ -59,16 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (animate) {
       if (liveDownloadEl) {
-        const start = parseInt((liveDownloadEl.textContent || '0').replace(/,/g, ''), 10) || downloads;
-        animateValue(liveDownloadEl, start, downloads, 1000);
+        const start = parseInt((liveDownloadEl.textContent || '0').replace(/,/g, ''), 10) || 0;
+        animateValue(liveDownloadEl, start, downloads, 700);
       }
       if (bannerDownloadEl) {
-        const start = parseInt((bannerDownloadEl.textContent || '0').replace(/,/g, ''), 10) || downloads;
-        animateValue(bannerDownloadEl, start, downloads, 1000);
+        const start = parseInt((bannerDownloadEl.textContent || '0').replace(/,/g, ''), 10) || 0;
+        animateValue(bannerDownloadEl, start, downloads, 700);
       }
       if (liveVisitorEl) {
-        const start = parseInt((liveVisitorEl.textContent || '0').replace(/,/g, ''), 10) || visits;
-        animateValue(liveVisitorEl, start, visits, 1200);
+        const start = parseInt((liveVisitorEl.textContent || '0').replace(/,/g, ''), 10) || 0;
+        animateValue(liveVisitorEl, start, visits, 900);
       }
     } else {
       if (liveDownloadEl) liveDownloadEl.textContent = formattedDownloads;
@@ -77,11 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Fetch real-time metrics
-  async function fetchLiveMetrics() {
+  // Real-time visit tracking
+  async function trackAndFetchMetrics() {
     try {
-      // 1. Visit Count
-      const sessionTracked = sessionStorage.getItem('kairo_session_visit');
+      // Check session to count genuine visits
+      const sessionTracked = sessionStorage.getItem('kairo_session_recorded');
       const visitEndpoint = sessionTracked ? `${COUNT_API_BASE}/get/${KEY_VISITS}` : `${COUNT_API_BASE}/hit/${KEY_VISITS}`;
 
       const [visitRes, downloadRes] = await Promise.allSettled([
@@ -90,25 +138,24 @@ document.addEventListener('DOMContentLoaded', () => {
       ]);
 
       if (visitRes.status === 'fulfilled' && visitRes.value && typeof visitRes.value.value === 'number') {
-        sessionStorage.setItem('kairo_session_visit', 'true');
-        currentVisits = BASE_VISITS + visitRes.value.value;
-        localStorage.setItem('kairo_cached_visits', currentVisits);
+        sessionStorage.setItem('kairo_session_recorded', 'true');
+        currentVisits = visitRes.value.value;
+        localStorage.setItem('kairo_real_visits', currentVisits);
       }
 
       if (downloadRes.status === 'fulfilled' && downloadRes.value && typeof downloadRes.value.value === 'number') {
-        currentDownloads = BASE_DOWNLOADS + downloadRes.value.value;
-        localStorage.setItem('kairo_cached_downloads', currentDownloads);
+        currentDownloads = downloadRes.value.value;
+        localStorage.setItem('kairo_real_downloads', currentDownloads);
       }
 
       updateCounterDisplay(currentDownloads, currentVisits, true);
     } catch (err) {
-      // Graceful fallback to persistent cached numbers
-      console.warn('Live counter telemetry offline, showing cached count:', err);
+      console.warn('Real-time telemetry notice:', err);
       updateCounterDisplay(currentDownloads, currentVisits, false);
     }
   }
 
-  // Record a download increment
+  // Real-time download tracking
   async function recordDownload(source = 'hero') {
     // 1. Google Analytics 4 Event
     if (typeof window.gtag === 'function') {
@@ -121,9 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 2. Local immediate optimistic UI bump
+    // 2. Instant optimistic UI bump
     currentDownloads += 1;
-    localStorage.setItem('kairo_cached_downloads', currentDownloads);
+    localStorage.setItem('kairo_real_downloads', currentDownloads);
     updateCounterDisplay(currentDownloads, currentVisits, false);
 
     // Visual trigger animations
@@ -140,26 +187,58 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => downloadIncTag.classList.remove('animate'), 1500);
     }
 
-    // 3. Atomically update backend counter API
+    // 3. Atomically increment remote backend counter
     try {
       const res = await fetch(`${COUNT_API_BASE}/hit/${KEY_DOWNLOADS}`);
       const data = await res.json();
       if (data && typeof data.value === 'number') {
-        currentDownloads = BASE_DOWNLOADS + data.value;
-        localStorage.setItem('kairo_cached_downloads', currentDownloads);
+        currentDownloads = data.value;
+        localStorage.setItem('kairo_real_downloads', currentDownloads);
         updateCounterDisplay(currentDownloads, currentVisits, false);
       }
     } catch (err) {
-      console.warn('Download counter sync deferred:', err);
+      console.warn('Download counter network deferred:', err);
     }
   }
 
-  fetchLiveMetrics();
+  trackAndFetchMetrics();
+
+  // Real-time polling every 12 seconds so updates reflect live without reloading
+  setInterval(async () => {
+    try {
+      const [visitRes, downloadRes] = await Promise.allSettled([
+        fetch(`${COUNT_API_BASE}/get/${KEY_VISITS}`).then(r => r.json()),
+        fetch(`${COUNT_API_BASE}/get/${KEY_DOWNLOADS}`).then(r => r.json())
+      ]);
+
+      let changed = false;
+      if (visitRes.status === 'fulfilled' && visitRes.value && typeof visitRes.value.value === 'number') {
+        if (visitRes.value.value !== currentVisits) {
+          currentVisits = visitRes.value.value;
+          localStorage.setItem('kairo_real_visits', currentVisits);
+          changed = true;
+        }
+      }
+
+      if (downloadRes.status === 'fulfilled' && downloadRes.value && typeof downloadRes.value.value === 'number') {
+        if (downloadRes.value.value !== currentDownloads) {
+          currentDownloads = downloadRes.value.value;
+          localStorage.setItem('kairo_real_downloads', currentDownloads);
+          changed = true;
+        }
+      }
+
+      if (changed) {
+        updateCounterDisplay(currentDownloads, currentVisits, true);
+      }
+    } catch (_) {}
+  }, 12000);
 
   // Attach download tracking to all APK download buttons
   const downloadTriggers = [
     { el: document.getElementById('btnHeroDownload'), source: 'hero_primary' },
     { el: document.querySelector('.btn-nav-download'), source: 'navbar' },
+    { el: document.querySelector('.btn-drawer-download'), source: 'mobile_drawer' },
     { el: document.querySelector('.cta-banner-card .btn-primary-cta'), source: 'cta_banner' },
     { el: document.querySelector('footer a[href*="KairoGram.apk"]'), source: 'footer' }
   ];
@@ -178,14 +257,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'web_app_launch', {
           destination_url: 'https://kariogram-web.onrender.com',
-          location: link.classList.contains('btn-nav-web') ? 'nav' : 'hero_card'
+          location: link.classList.contains('btn-nav-web') ? 'nav' : 'button'
         });
       }
     });
   });
 
   // ==========================================
-  // 2. SHOWCASE TAB SWITCHER
+  // 3. SHOWCASE TAB SWITCHER
   // ==========================================
   const showcaseTabs = document.querySelectorAll('.showcase-tab');
   const showcasePanels = document.querySelectorAll('.showcase-tab-panel');
@@ -212,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 3. DYNAMIC SERMON VOICE AI SIMULATOR
+  // 4. DYNAMIC SERMON VOICE AI SIMULATOR
   // ==========================================
   const sampleVoiceDetections = [
     {
@@ -270,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 4. COPY APK DOWNLOAD LINK
+  // 5. COPY APK DOWNLOAD LINK
   // ==========================================
   const btnCopy = document.getElementById('btnCopyDownloadLink');
   const toast = document.getElementById('toastPopup');
@@ -322,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 5. SMOOTH ANCHOR SCROLLING
+  // 6. SMOOTH ANCHOR SCROLLING
   // ==========================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -342,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 6. HEADER ELEVATION ON SCROLL
+  // 7. HEADER ELEVATION ON SCROLL
   // ==========================================
   const header = document.getElementById('siteHeader');
   if (header) {

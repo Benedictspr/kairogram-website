@@ -79,6 +79,67 @@
           </svg>
           <span>Get APK</span>
         </a>
+        <button type="button" class="btn-mobile-menu" id="btnMobileMenu" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+      <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+      <div class="mobile-drawer-sheet">
+        <div class="mobile-drawer-header">
+          <div class="brand-logo">
+            <div class="logo-symbol">
+              <img src="assets/logo.png" alt="Kairogram Logo" class="brand-logo-img">
+            </div>
+            <span class="brand-name">Kairogram</span>
+          </div>
+          <button type="button" class="btn-drawer-close" id="btnDrawerClose" aria-label="Close menu">&times;</button>
+        </div>
+        <nav class="mobile-nav-links">
+          <a href="#features" class="mobile-nav-link">
+            <span class="link-icon">✨</span>
+            <span>Features</span>
+          </a>
+          <a href="#reader" class="mobile-nav-link">
+            <span class="link-icon">📖</span>
+            <span>Paperback Spread</span>
+          </a>
+          <a href="#speech-ai" class="mobile-nav-link">
+            <span class="link-icon">🎙️</span>
+            <span>Voice AI Radar</span>
+          </a>
+          <a href="#install" class="mobile-nav-link">
+            <span class="link-icon">📲</span>
+            <span>How to Install</span>
+          </a>
+          <a href="#developer" class="mobile-nav-link">
+            <span class="link-icon">👨‍💻</span>
+            <span>About Developer</span>
+          </a>
+        </nav>
+        <div class="mobile-drawer-actions">
+          <a href="downloads/KairoGram.apk" class="btn-drawer-download" download="KairoGram.apk">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download KairoGram.apk (34.4 MB)</span>
+          </a>
+          <a href="https://kariogram-web.onrender.com" target="_blank" rel="noopener noreferrer" class="btn-drawer-web">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span>Launch Web App (Render)</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -124,19 +185,21 @@
             </div>
           </a>
 
-          <a href="https://kariogram-web.onrender.com" target="_blank" rel="noopener noreferrer" class="btn-web-cta" title="Launch Web Version on Render">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span>Launch Web App</span>
-          </a>
+          <div class="hero-sub-cta-row">
+            <a href="https://kariogram-web.onrender.com" target="_blank" rel="noopener noreferrer" class="btn-web-cta" title="Launch Web Version on Render">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span>Launch Web App</span>
+            </a>
 
-          <a href="#features" class="btn-secondary-cta">
-            <span>Explore Features</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
-          </a>
+            <a href="#features" class="btn-secondary-cta">
+              <span>Explore Features</span>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+            </a>
+          </div>
         </div>
 
         <!-- PUBLIC LIVE COUNTER -->
@@ -226,11 +289,13 @@
           <div class="showcase-tab-header">
             <button type="button" class="showcase-tab active" data-tab="spread">
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-              <span>Authentic Two-Page Spread</span>
+              <span class="tab-label-full">Authentic Two-Page Spread</span>
+              <span class="tab-label-mobile">Paperback Spread</span>
             </button>
             <button type="button" class="showcase-tab" data-tab="voice">
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
-              <span>Live Sermon Voice Radar</span>
+              <span class="tab-label-full">Live Sermon Voice Radar</span>
+              <span class="tab-label-mobile">Voice AI Radar</span>
             </button>
           </div>
 
